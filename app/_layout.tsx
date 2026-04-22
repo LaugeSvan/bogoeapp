@@ -15,6 +15,9 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
+        //default header. add following line to hide:
+        // <Stack.Screen options={{ headerShown: false }} />
+        //you can also use this with the following terms and more:
         headerTitleStyle: { fontFamily: "Nunito_700Bold" },
         headerTitle: "Bogø App",
         headerTitleAlign: "center",
