@@ -1,14 +1,18 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import styles from "../styles/global";
 
 const HomeScreen = () => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
       <Text style={styles.title}>Bogø</Text>
       <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
-      <TouchableOpacity style={styles.welcomeBtn}>
+      <TouchableOpacity
+        style={styles.welcomeBtn}
+        onPress={() => router.push("/register")}
+      >
         <Text style={styles.text}>Opret</Text>
       </TouchableOpacity>
       <Text style={styles.alreadyText}>
