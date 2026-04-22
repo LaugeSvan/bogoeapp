@@ -5,11 +5,15 @@ import styles from "../styles/global";
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false }} />;
-      <Text style={styles.text}>Velkommen til appen.</Text>
-      <TouchableOpacity style={styles.btn}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <Text style={styles.title}>Bogø</Text>
+      <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
+      <TouchableOpacity style={styles.welcomeBtn}>
         <Text style={styles.text}>Opret</Text>
       </TouchableOpacity>
+      <Text style={styles.alreadyText}>
+        Allerede bruger? <Text style={styles.link}>Log ind</Text>
+      </Text>
     </View>
   );
 };
