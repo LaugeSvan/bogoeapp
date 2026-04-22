@@ -1,4 +1,4 @@
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import styles from "../styles/global";
 
@@ -6,7 +6,6 @@ const HomeScreen = () => {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ headerShown: false }} />
       <Text style={styles.title}>Bogø</Text>
       <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
       <TouchableOpacity
