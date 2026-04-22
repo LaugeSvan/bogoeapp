@@ -15,6 +15,7 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
+        animation: "none",
         //default header. add following line to hide:
         // <Stack.Screen options={{ headerShown: false }} />
         //you can also use this with the following terms and more:
