@@ -16,63 +16,56 @@ export default StyleSheet.create({
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     padding: 3,
   },
-  title: {
-    fontFamily: "Nunito_700Bold",
-    marginBottom: 5,
-    fontSize: 64,
-  },
+
   text: {
     fontFamily: "Nunito_400Regular",
     fontSize: 24,
   },
-  alreadyText: {
-    fontFamily: "Nunito_400Regular",
-    fontSize: 18,
-  },
-  link: {
-    color: colors.link,
-    textDecorationLine: "underline",
-  },
-  welcomeBtn: {
-    backgroundColor: colors.primary,
-    padding: 10,
-    borderRadius: 15,
-    margin: 5,
-    marginBottom: 15,
-    minWidth: 250,
-    alignItems: "center",
-  },
-  input: {
-    borderColor: colors.border,
-    borderWidth: 1,
-    borderRadius: 14,
-    minHeight: 36,
-    marginVertical: 10,
-    backgroundColor: colors.input,
-    paddingHorizontal: 10,
-  },
-  inputContainer: {
-    paddingVertical: 16,
-    width: "70%",
-  },
-  tagline: {
-    marginBottom: 50,
-  },
+
   card: {
     backgroundColor: colors.header,
-    minWidth: "85%",
+    width: "90%",
     marginVertical: 12,
-    minHeight: 48,
     padding: 12,
   },
+
   cardTitle: {
     fontSize: 28,
     marginBottom: 10,
+    fontFamily: "Nunito_700Bold",
   },
+
   cardText: {
     fontSize: 18,
+    fontFamily: "Nunito_400Regular",
+    lineHeight: 24,
+  },
+
+  cardImage: {
+    width: "100%",
+    aspectRatio: 1,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+
+  readMoreText: {
+    color: colors.link,
+    textDecorationLine: "underline",
+    fontSize: 18,
+  },
+
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.9)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+
+  fullImage: {
+    width: "95%",
+    height: "80%",
   },
 });
