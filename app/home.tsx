@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
+import { HeaderIcons } from "../components";
 import styles from "../styles/global";
 
 interface User {
@@ -14,6 +15,7 @@ interface User {
 const HomeScreen = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -29,7 +31,7 @@ const HomeScreen = () => {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("currentUser");
-    router.push("/login");
+    router.replace("/home");
   };
 
   if (!user) {
@@ -37,13 +39,26 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Velkommen, {user.name}!</Text>
-      <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
-      <TouchableOpacity style={styles.welcomeBtn} onPress={handleLogout}>
-        <Text style={styles.text}>Log ud</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <Stack.Screen
+        options={{
+          headerBackVisible: false,
+          gestureEnabled: false,
+          headerRight: () => (
+            <HeaderIcons
+              onNotifications={() => router.push("/notifications")}
+              onLogout={handleLogout}
+              onThemeToggle={() => setIsDark((prev) => !prev)}
+              isDark={isDark}
+            />
+          ),
+        }}
+      />
+      <View style={styles.container}>
+        <Text style={styles.title}>Velkommen, {user.name}!</Text>
+        <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
+      </View>
+    </>
   );
 };
 
