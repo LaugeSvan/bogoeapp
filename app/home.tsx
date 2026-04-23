@@ -40,9 +40,6 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Velkommen, {user.name}!</Text>
       <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
-      <Text style={styles.text}>
-        {user.isOnBogø ? "Du er på Bogø" : "Du er ikke på Bogø endnu"}
-      </Text>
       <TouchableOpacity style={styles.welcomeBtn} onPress={handleLogout}>
         <Text style={styles.text}>Log ud</Text>
       </TouchableOpacity>
