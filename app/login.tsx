@@ -69,6 +69,12 @@ const Login = () => {
           <Text style={styles.text}>Log ind</Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.alreadyText}>
+        Har du ikke en bruger?{" "}
+        <Text style={styles.link} onPress={() => router.push("/register")}>
+          Opret
+        </Text>
+      </Text>
     </View>
   );
 };
