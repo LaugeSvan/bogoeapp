@@ -15,7 +15,10 @@ const HomeScreen = () => {
         <Text style={styles.text}>Opret</Text>
       </TouchableOpacity>
       <Text style={styles.alreadyText}>
-        Allerede bruger? <Text style={styles.link}>Log ind</Text>
+        Allerede bruger?{" "}
+        <Text style={styles.link} onPress={() => router.push("/login")}>
+          Log ind
+        </Text>
       </Text>
     </View>
   );

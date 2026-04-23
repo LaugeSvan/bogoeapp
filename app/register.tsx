@@ -1,7 +1,9 @@
+import { useRouter } from "expo-router";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import styles from "../styles/global";
 
 const Screen = () => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Opret dig på vores fælleskab!</Text>
@@ -16,7 +18,10 @@ const Screen = () => {
         <Text style={styles.text}>Opret</Text>
       </TouchableOpacity>
       <Text style={styles.alreadyText}>
-        Allerede bruger? <Text style={styles.link}>Log ind</Text>
+        Allerede bruger?{" "}
+        <Text style={styles.link} onPress={() => router.push("/login")}>
+          Log ind
+        </Text>
       </Text>
     </View>
   );
