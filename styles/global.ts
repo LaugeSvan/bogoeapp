@@ -61,4 +61,18 @@ export default StyleSheet.create({
   tagline: {
     marginBottom: 50,
   },
+  card: {
+    backgroundColor: colors.header,
+    minWidth: "85%",
+    marginVertical: 12,
+    minHeight: 48,
+    padding: 12,
+  },
+  cardTitle: {
+    fontSize: 28,
+    marginBottom: 10,
+  },
+  cardText: {
+    fontSize: 18,
+  },
 });
