@@ -29,12 +29,12 @@ const Login = () => {
       const users: User[] = existingUsers ? JSON.parse(existingUsers) : [];
 
       const user = users.find(
-        (u) => u.email === email.trim() && u.password === password
+        (u) => u.email === email.trim() && u.password === password,
       );
 
       if (user) {
         await AsyncStorage.setItem("currentUser", JSON.stringify(user));
-        router.push("/home");
+        router.push("/(tabs)");
       } else {
         setError("Forkert email eller kodeord");
       }
@@ -46,7 +46,9 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Login på vores fælleskab!</Text>
-      {error ? <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text> : null}
+      {error ? (
+        <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
+      ) : null}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
