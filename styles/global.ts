@@ -5,6 +5,9 @@ export const colors = {
   background: "#c1e1c1",
   header: "#b5d5b5",
   link: "#2a335e",
+  border: "#141414",
+  text: "#141414",
+  input: "#d8d8d8",
 };
 
 export default StyleSheet.create({
@@ -40,6 +43,19 @@ export default StyleSheet.create({
     marginBottom: 15,
     minWidth: 250,
     alignItems: "center",
+  },
+  input: {
+    borderColor: colors.border,
+    borderWidth: 1,
+    borderRadius: 14,
+    minHeight: 36,
+    marginVertical: 10,
+    backgroundColor: colors.input,
+    paddingHorizontal: 10,
+  },
+  inputContainer: {
+    paddingVertical: 16,
+    width: "70%",
   },
   tagline: {
     marginBottom: 50,
