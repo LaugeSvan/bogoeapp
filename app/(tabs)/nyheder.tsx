@@ -1,4 +1,4 @@
-import { LazyImage } from "@/components";
+import { AppImage } from "@/components";
 import { useState } from "react";
 import { Modal, Pressable, ScrollView, Text, View } from "react-native";
 import styles from "../../styles/global";
@@ -41,7 +41,11 @@ function NewsCard({ title, text, image, tallImage = false }: NewsCardProps) {
       </Pressable>
 
       <Pressable onPress={handleImagePress}>
-        <LazyImage uri={image} style={styles.cardImage} resizeMode="contain" />
+        <AppImage
+          source={{ uri: image }}
+          style={styles.cardImage}
+          resizeMode="contain"
+        />
       </Pressable>
 
       {tallImage && (
@@ -50,8 +54,8 @@ function NewsCard({ title, text, image, tallImage = false }: NewsCardProps) {
             style={styles.modalBackground}
             onPress={() => setOpenImage(false)}
           >
-            <LazyImage
-              uri={image}
+            <AppImage
+              source={{ uri: image }}
               style={styles.fullImage}
               resizeMode="contain"
             />
