@@ -7,6 +7,7 @@ export const colors = {
   link: "#2a335e",
   border: "#141414",
   text: "#141414",
+  symbol: "#141414",
   input: "#d8d8d8",
 };
 
