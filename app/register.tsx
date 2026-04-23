@@ -1,9 +1,13 @@
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { RadioOption } from "../components";
 import styles from "../styles/global";
 
 const Screen = () => {
   const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState<string>("");
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Opret dig på vores fælleskab!</Text>
@@ -12,7 +16,19 @@ const Screen = () => {
         <TextInput style={styles.input} placeholder="Email" />
         <TextInput style={styles.input} placeholder="Kodeord" />
         <TextInput style={styles.input} placeholder="Gentag kodeord" />
-        <TextInput style={styles.input} placeholder="placeholder" />
+        <Text style={styles.alreadyText}>Er du på Bogø?</Text>
+        <RadioOption
+          label="Ja"
+          value="true"
+          selected={selectedOption === "true"}
+          onSelect={setSelectedOption}
+        />
+        <RadioOption
+          label="Nej"
+          value="false"
+          selected={selectedOption === "false"}
+          onSelect={setSelectedOption}
+        />
       </View>
       <TouchableOpacity style={styles.welcomeBtn}>
         <Text style={styles.text}>Opret</Text>
