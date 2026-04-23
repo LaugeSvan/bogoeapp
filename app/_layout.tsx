@@ -6,7 +6,6 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { colors } from "../styles/global";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -34,11 +33,10 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         animation: "none",
-        headerTitleStyle: { fontFamily: "Nunito_700Bold" },
-        headerTitle: "Bogø App",
-        headerTitleAlign: "center",
-        headerStyle: { backgroundColor: colors.header },
+        headerShown: false,
       }}
-    />
+    >
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
   );
 }
