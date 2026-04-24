@@ -63,7 +63,7 @@ export default StyleSheet.create({
 
   modalBackground: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.9)",
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
@@ -116,5 +116,77 @@ export default StyleSheet.create({
   link: {
     color: colors.link,
     textDecorationLine: "underline",
+  },
+
+  filterContainer: {
+    flexDirection: "row",
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+
+  chip: {
+    backgroundColor: colors.input,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+
+  chipActive: {
+    backgroundColor: colors.primary,
+  },
+
+  chipText: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 14,
+    color: colors.text,
+  },
+
+  chipTextActive: {
+    fontFamily: "Nunito_700Bold",
+  },
+
+  modalContent: {
+    backgroundColor: colors.background,
+    width: "85%",
+    padding: 20,
+    borderRadius: 15,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.border,
+    position: "relative",
+    // Skygge til iOS
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    // Skygge til Android
+    elevation: 5,
+  },
+
+  fab: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+    backgroundColor: colors.primary,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+  },
+
+  closeButton: {
+    position: "absolute",
+    top: 15,
+    right: 15,
+    zIndex: 1,
   },
 });
