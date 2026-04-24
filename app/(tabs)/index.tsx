@@ -25,7 +25,7 @@ const HomeScreen = () => {
       }
     };
     loadUser();
-  }, []);
+  }, [router]);
 
   if (!user) return null;
 

@@ -16,6 +16,7 @@ export default StyleSheet.create({
     backgroundColor: colors.background,
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     padding: 3,
   },
 
@@ -67,5 +68,49 @@ export default StyleSheet.create({
   fullImage: {
     width: "95%",
     height: "80%",
+  },
+
+  title: {
+    fontSize: 48,
+    fontFamily: "Nunito_700Bold",
+    marginBottom: 10,
+  },
+
+  tagline: {
+    fontSize: 18,
+    marginBottom: 40,
+  },
+
+  welcomeBtn: {
+    backgroundColor: colors.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+
+  inputContainer: {
+    width: "80%",
+    marginBottom: 20,
+  },
+
+  input: {
+    backgroundColor: colors.input,
+    padding: 12,
+    marginBottom: 12,
+    borderRadius: 8,
+    fontSize: 16,
+    fontFamily: "Nunito_400Regular",
+  },
+
+  alreadyText: {
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 10,
+  },
+
+  link: {
+    color: colors.link,
+    textDecorationLine: "underline",
   },
 });

@@ -25,7 +25,7 @@ export default function RootLayout() {
       }
     };
     checkLogin();
-  }, [fontsLoaded]);
+  }, [fontsLoaded, router]);
 
   if (!fontsLoaded) return null;
 
