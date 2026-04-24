@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, SafeAreaView, View } from "react-native";
 import styles from "../styles/global";
 
 interface User {
@@ -44,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Login på vores fælleskab!</Text>
       {error ? (
         <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
@@ -75,7 +75,7 @@ const Login = () => {
           Opret
         </Text>
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, SafeAreaView } from "react-native";
 import styles from "../../styles/global";
 
 interface User {
@@ -30,9 +30,9 @@ const HomeScreen = () => {
   if (!user) return null;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Hjem</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

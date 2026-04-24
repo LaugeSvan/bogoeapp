@@ -1,11 +1,11 @@
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, SafeAreaView } from "react-native";
 import styles from "../styles/global";
 
 const HomeScreen = () => {
   const router = useRouter();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Bogø</Text>
       <Text style={[styles.text, styles.tagline]}>Et lokalt fællesskab</Text>
       <TouchableOpacity
@@ -20,7 +20,7 @@ const HomeScreen = () => {
           Log ind
         </Text>
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

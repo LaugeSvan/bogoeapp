@@ -1,6 +1,6 @@
 import { AppImage } from "@/components";
 import { useState } from "react";
-import { Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Modal, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
 import styles from "../../styles/global";
 
 type NewsCardProps = {
@@ -68,7 +68,7 @@ function NewsCard({ title, text, image, tallImage = false }: NewsCardProps) {
 
 export default function Nyheder() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Nyheder</Text>
 
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
@@ -100,6 +100,6 @@ export default function Nyheder() {
           tallImage={false}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
