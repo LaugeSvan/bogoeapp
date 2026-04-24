@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, SafeAreaView } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import styles from "../../styles/global";
 
 interface User {

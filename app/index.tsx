@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { SafeAreaView, Text, TouchableOpacity } from "react-native";
 import styles from "../styles/global";
 
 const HomeScreen = () => {

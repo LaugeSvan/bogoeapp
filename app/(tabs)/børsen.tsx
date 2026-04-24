@@ -1,4 +1,4 @@
-import { Text, SafeAreaView } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import styles from "../../styles/global";
 
 export default function Børsen() {

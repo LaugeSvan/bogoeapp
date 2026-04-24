@@ -1,6 +1,13 @@
 import { AppImage } from "@/components";
 import { useState } from "react";
-import { Modal, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import styles from "../../styles/global";
 
 type NewsCardProps = {
