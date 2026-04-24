@@ -50,37 +50,39 @@ const Login = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Login på vores fælleskab!</Text>
-      {error ? (
-        <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
-      ) : null}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Kodeord"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TouchableOpacity style={styles.welcomeBtn} onPress={handleLogin}>
-          <Text style={styles.text}>Log ind</Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.alreadyText}>
-        Har du ikke en bruger?{" "}
-        <Text style={styles.link} onPress={() => router.push("/register")}>
-          Opret
+    <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.container}>
+        <Text style={styles.text}>Login på vores fællesskab!</Text>
+        {error ? (
+          <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
+        ) : null}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Kodeord"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TouchableOpacity style={styles.welcomeBtn} onPress={handleLogin}>
+            <Text style={styles.text}>Log ind</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.alreadyText}>
+          Har du ikke en bruger?{" "}
+          <Text style={styles.link} onPress={() => router.push("/register")}>
+            Opret
+          </Text>
         </Text>
-      </Text>
+      </View>
     </SafeAreaView>
   );
 };

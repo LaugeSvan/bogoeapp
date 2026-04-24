@@ -85,63 +85,65 @@ const Screen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Opret dig på vores fælleskab!</Text>
-      {error ? (
-        <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
-      ) : null}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Navn"
-          value={name}
-          onChangeText={setName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Kodeord"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Gentag kodeord"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
-        <Text style={styles.alreadyText}>Bor du på Bogø?</Text>
-        <RadioOption
-          label="Ja"
-          value="true"
-          selected={selectedOption === "true"}
-          onSelect={setSelectedOption}
-        />
-        <RadioOption
-          label="Nej"
-          value="false"
-          selected={selectedOption === "false"}
-          onSelect={setSelectedOption}
-        />
-      </View>
-      <TouchableOpacity style={styles.welcomeBtn} onPress={handleRegister}>
-        <Text style={styles.text}>Opret</Text>
-      </TouchableOpacity>
-      <Text style={styles.alreadyText}>
-        Allerede bruger?{" "}
-        <Text style={styles.link} onPress={() => router.push("/login")}>
-          Log ind
+    <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.container}>
+        <Text style={styles.text}>Opret dig på vores fællesskab!</Text>
+        {error ? (
+          <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
+        ) : null}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Navn"
+            value={name}
+            onChangeText={setName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Kodeord"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Gentag kodeord"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+          />
+          <Text style={styles.alreadyText}>Bor du på Bogø?</Text>
+          <RadioOption
+            label="Ja"
+            value="true"
+            selected={selectedOption === "true"}
+            onSelect={setSelectedOption}
+          />
+          <RadioOption
+            label="Nej"
+            value="false"
+            selected={selectedOption === "false"}
+            onSelect={setSelectedOption}
+          />
+        </View>
+        <TouchableOpacity style={styles.welcomeBtn} onPress={handleRegister}>
+          <Text style={styles.text}>Opret</Text>
+        </TouchableOpacity>
+        <Text style={styles.alreadyText}>
+          Allerede bruger?{" "}
+          <Text style={styles.link} onPress={() => router.push("/login")}>
+            Log ind
+          </Text>
         </Text>
-      </Text>
+      </View>
     </SafeAreaView>
   );
 };

@@ -75,38 +75,40 @@ function NewsCard({ title, text, image, tallImage = false }: NewsCardProps) {
 
 export default function Nyheder() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Nyheder</Text>
+    <SafeAreaView style={styles.safeAreaView}>
+      <View style={styles.container}>
+        <Text style={styles.text}>Nyheder</Text>
 
-      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-        <NewsCard
-          title="Nyhed 1"
-          image="https://i.imgur.com/6y6l0fv.jpeg"
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic amet nostrum delectus eveniet perspiciatis, minus quam esse doloribus distinctio, modi explicabo, ex dolorum veritatis? Quibusdam sapiente labore incidunt repudiandae..."
-          tallImage={false}
-        />
+        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+          <NewsCard
+            title="Nyhed 1"
+            image="https://i.imgur.com/6y6l0fv.jpeg"
+            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic amet nostrum delectus eveniet perspiciatis, minus quam esse doloribus distinctio, modi explicabo, ex dolorum veritatis? Quibusdam sapiente labore incidunt repudiandae..."
+            tallImage={false}
+          />
 
-        <NewsCard
-          title="Nyhed 2"
-          image="https://i.imgur.com/6y6l0fv.jpeg"
-          text="Kort tekst til nyhed 2"
-          tallImage={false}
-        />
+          <NewsCard
+            title="Nyhed 2"
+            image="https://i.imgur.com/6y6l0fv.jpeg"
+            text="Kort tekst til nyhed 2"
+            tallImage={false}
+          />
 
-        <NewsCard
-          title="Nyhed 3"
-          image="https://i.imgur.com/6y6l0fv.jpeg"
-          text="Kort tekst til nyhed 3"
-          tallImage={true}
-        />
+          <NewsCard
+            title="Nyhed 3"
+            image="https://i.imgur.com/6y6l0fv.jpeg"
+            text="Kort tekst til nyhed 3"
+            tallImage={true}
+          />
 
-        <NewsCard
-          title="Nyhed 4"
-          image="https://i.imgur.com/6y6l0fv.jpeg"
-          text="Kort tekst til nyhed 4"
-          tallImage={false}
-        />
-      </ScrollView>
+          <NewsCard
+            title="Nyhed 4"
+            image="https://i.imgur.com/6y6l0fv.jpeg"
+            text="Kort tekst til nyhed 4"
+            tallImage={false}
+          />
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

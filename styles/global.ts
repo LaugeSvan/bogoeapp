@@ -12,6 +12,10 @@ export const colors = {
 };
 
 export default StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+  },
+
   container: {
     backgroundColor: colors.background,
     flex: 1,

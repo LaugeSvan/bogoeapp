@@ -11,7 +11,7 @@ export default function TabLayout() {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("currentUser");
-    router.replace("/login");
+    router.replace("/");
   };
 
   return (
