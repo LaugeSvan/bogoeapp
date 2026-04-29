@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tabs, useRouter } from "expo-router";
 import { useState } from "react";
+import { Pressable } from "react-native";
 import { HeaderIcons } from "../../components";
 import { colors } from "../../styles/global";
 
@@ -43,8 +44,22 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
+          tabBarButton: (props) => {
+            const { ref, ...rest } = props;
+
+            return (
+              <Pressable
+                {...rest}
+                delayLongPress={600}
+                onLongPress={
+                  __DEV__ ? () => router.push("/_sitemap") : undefined
+                }
+              />
+            );
+          },
         }}
       />
+
       <Tabs.Screen
         name="nyheder"
         options={{
@@ -54,6 +69,7 @@ export default function TabLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="børsen"
         options={{
@@ -63,6 +79,7 @@ export default function TabLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="fællesskab"
         options={{
@@ -72,6 +89,7 @@ export default function TabLayout() {
           ),
         }}
       />
+
       <Tabs.Screen
         name="profil"
         options={{
