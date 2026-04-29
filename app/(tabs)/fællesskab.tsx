@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
+  FlatList,
   Modal,
   Pressable,
   SafeAreaView,
@@ -15,15 +16,97 @@ import styles, { colors } from "../../styles/global";
 
 const categories = ["Alle", "Begivenheder", "Spørgsmål", "Nyheder", "Andet"];
 
+type Post = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+};
+
+type PostCardProps = {
+  post: Post;
+};
+
+function PostCard({ post }: PostCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const previewText =
+    post.description.length > 120
+      ? post.description.slice(0, 120)
+      : post.description;
+
+  return (
+    <View style={styles.card}>
+      <Text style={styles.cardTitle}>{post.title}</Text>
+      <Text style={[styles.chipText, { marginBottom: 6 }]}>
+        {post.category}
+      </Text>
+      <Pressable onPress={() => setExpanded((v) => !v)}>
+        <Text style={styles.cardText}>
+          {expanded ? post.description : previewText}
+          {!expanded && post.description.length > 120 && (
+            <Text style={styles.readMoreText}> Læs mere</Text>
+          )}
+          {expanded && (
+            <Text style={styles.readMoreText}> Vis mindre</Text>
+          )}
+        </Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const dummyPosts: Post[] = [
+  {
+    id: "1",
+    title: "Velkomstfest på havnen",
+    description:
+      "Vi holder en stor velkomstfest nede ved havnen lørdag den 10. maj kl. 14. Alle er velkomne! Der vil være mad, musik og hygge for hele familien. Kom og mød dine naboer og nye beboere på øen.",
+    category: "Begivenheder",
+  },
+  {
+    id: "2",
+    title: "Nogen der kender en god VVS'er?",
+    description: "Har brug for hjælp til et vandrør der er gået i stykker. Tips modtages gerne!",
+    category: "Spørgsmål",
+  },
+  {
+    id: "3",
+    title: "Ny sti åbnet ved skoven",
+    description: "Kommunen har åbnet en ny natursti ved skoven mod nord. Perfekt til en gåtur.",
+    category: "Nyheder",
+  },
+  {
+    id: "4",
+    title: "Fælles havedag",
+    description: "Vi mødes søndag kl. 10 for at rydde op i fællesarealet ved indkørslen. Medbring handsker og godt humør.",
+    category: "Begivenheder",
+  },
+];
+
 export default function Fællesskab() {
   const [selectedCategory, setSelectedCategory] = useState("Alle");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [newPostCategory, setNewPostCategory] = useState("Begivenheder");
+  const [posts, setPosts] = useState<Post[]>(dummyPosts);
+
+  const filteredPosts =
+    selectedCategory === "Alle"
+      ? posts
+      : posts.filter((p) => p.category === selectedCategory);
 
   const handleCreatePost = () => {
-    console.log("Nyt opslag:", { title, description, newPostCategory });
+    if (!title.trim()) return;
+    setPosts((prev) => [
+      {
+        id: Date.now().toString(),
+        title,
+        description,
+        category: newPostCategory,
+      },
+      ...prev,
+    ]);
     setTitle("");
     setDescription("");
     setNewPostCategory("Begivenheder");
@@ -61,11 +144,17 @@ export default function Fællesskab() {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.text}>
-            Her kommer opslag for: {selectedCategory}
-          </Text>
-        </View>
+        <FlatList
+          data={filteredPosts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <PostCard post={item} />}
+          contentContainerStyle={{ alignItems: "center", paddingBottom: 100 }}
+          ListEmptyComponent={
+            <Text style={[styles.text, { marginTop: 40 }]}>
+              Ingen opslag i denne kategori
+            </Text>
+          }
+        />
 
         <TouchableOpacity
           style={styles.fab}

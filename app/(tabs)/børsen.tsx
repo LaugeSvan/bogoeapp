@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
+  FlatList,
   Modal,
   Pressable,
   SafeAreaView,
@@ -15,18 +16,104 @@ import styles, { colors } from "../../styles/global";
 
 const categories = ["Alle", "Sælger", "Søges", "Gives væk"];
 
+type Listing = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+};
+
+type ListingCardProps = {
+  listing: Listing;
+};
+
+function ListingCard({ listing }: ListingCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const previewText =
+    listing.description.length > 120
+      ? listing.description.slice(0, 120)
+      : listing.description;
+
+  return (
+    <View style={styles.card}>
+      <Text style={styles.cardTitle}>{listing.title}</Text>
+      <Text style={[styles.chipText, { marginBottom: 6 }]}>
+        {listing.category}
+      </Text>
+      <Pressable onPress={() => setExpanded((v) => !v)}>
+        <Text style={styles.cardText}>
+          {expanded ? listing.description : previewText}
+          {!expanded && listing.description.length > 120 && (
+            <Text style={styles.readMoreText}> Læs mere</Text>
+          )}
+          {expanded && (
+            <Text style={styles.readMoreText}> Vis mindre</Text>
+          )}
+        </Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const dummyListings: Listing[] = [
+  {
+    id: "1",
+    title: "Gammel cykel sælges",
+    description:
+      "Sælger en gammel damecykel i god stand. 7 gear, nylige bremser. Afhentes på Bogø. Pris: 300 kr.",
+    category: "Sælger",
+  },
+  {
+    id: "2",
+    title: "Søger trailer til lån",
+    description: "Har nogen en trailer jeg må låne en weekend i maj? Skal flytte noget havemøbler.",
+    category: "Søges",
+  },
+  {
+    id: "3",
+    title: "Gives væk: blomsterpotter",
+    description: "Har en masse tomme blomsterpotter i forskellige størrelser som gives væk. Kom og hent!",
+    category: "Gives væk",
+  },
+  {
+    id: "4",
+    title: "Plæneklipper sælges",
+    description:
+      "Benzindrevet plæneklipper sælges. Virker fint, men vi har fået en robotklipper. Årgang 2018. Pris: 800 kr. eller kom med et bud.",
+    category: "Sælger",
+  },
+  {
+    id: "5",
+    title: "Søger babysitter",
+    description: "Vi søger en pålidelig babysitter til vores to børn (4 og 7 år) et par fredage om måneden.",
+    category: "Søges",
+  },
+];
+
 export default function Børsen() {
   const [selectedCategory, setSelectedCategory] = useState("Alle");
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  // State for nyt opslag
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [newPostCategory, setNewPostCategory] = useState("Sælger");
+  const [listings, setListings] = useState<Listing[]>(dummyListings);
+
+  const filteredListings =
+    selectedCategory === "Alle"
+      ? listings
+      : listings.filter((l) => l.category === selectedCategory);
 
   const handleCreatePost = () => {
-    console.log("Nyt opslag:", { title, description, newPostCategory });
-    // Nulstil felter og luk modal
+    if (!title.trim()) return;
+    setListings((prev) => [
+      {
+        id: Date.now().toString(),
+        title,
+        description,
+        category: newPostCategory,
+      },
+      ...prev,
+    ]);
     setTitle("");
     setDescription("");
     setNewPostCategory("Sælger");
@@ -64,11 +151,17 @@ export default function Børsen() {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text style={styles.text}>
-            Her kommer opslag for: {selectedCategory}
-          </Text>
-        </View>
+        <FlatList
+          data={filteredListings}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <ListingCard listing={item} />}
+          contentContainerStyle={{ alignItems: "center", paddingBottom: 100 }}
+          ListEmptyComponent={
+            <Text style={[styles.text, { marginTop: 40 }]}>
+              Ingen opslag i denne kategori
+            </Text>
+          }
+        />
 
         <TouchableOpacity
           style={styles.fab}
