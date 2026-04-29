@@ -78,7 +78,7 @@ const Screen = () => {
       users.push(newUser);
       await AsyncStorage.setItem("users", JSON.stringify(users));
       await AsyncStorage.setItem("currentUser", JSON.stringify(newUser));
-      router.push("/(tabs)");
+      router.replace("/(tabs)");
     } catch {
       setError("Noget gik galt. Prøv igen.");
     }
