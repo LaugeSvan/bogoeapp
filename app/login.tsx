@@ -40,7 +40,7 @@ const Login = () => {
 
       if (user) {
         await AsyncStorage.setItem("currentUser", JSON.stringify(user));
-        router.push("/(tabs)");
+        router.replace("/(tabs)");
       } else {
         setError("Forkert email eller kodeord");
       }
