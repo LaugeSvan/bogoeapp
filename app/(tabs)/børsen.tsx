@@ -13,7 +13,7 @@ import {
 import { RadioOption } from "../../components";
 import styles, { colors } from "../../styles/global";
 
-const categories = ["Alle", "Sælger", "Køber", "Giver væk", "Søges"];
+const categories = ["Alle", "Sælger", "Søges", "Gives væk"];
 
 export default function Børsen() {
   const [selectedCategory, setSelectedCategory] = useState("Alle");
