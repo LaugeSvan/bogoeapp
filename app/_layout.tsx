@@ -17,10 +17,17 @@ export default function RootLayout() {
   useEffect(() => {
     if (!fontsLoaded) return;
     const checkLogin = async () => {
-      const currentUser = await AsyncStorage.getItem("currentUser");
-      if (currentUser) {
-        router.replace("/(tabs)");
-      } else {
+      try {
+        const currentUser = await AsyncStorage.getItem("currentUser");
+        const parsed = currentUser ? JSON.parse(currentUser) : null;
+        if (parsed && parsed.email && parsed.name) {
+          router.replace("/(tabs)");
+        } else {
+          await AsyncStorage.removeItem("currentUser");
+          router.replace("/");
+        }
+      } catch {
+        await AsyncStorage.removeItem("currentUser");
         router.replace("/");
       }
     };
