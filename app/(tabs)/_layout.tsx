@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tabs, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
 import { HeaderIcons } from "../../components";
+import { supabase } from "../../lib/supabase";
 import { colors } from "../../styles/global";
 
 export default function TabLayout() {
@@ -11,7 +11,7 @@ export default function TabLayout() {
   const [isDark, setIsDark] = useState(false);
 
   const handleLogout = async () => {
-    await AsyncStorage.removeItem("currentUser");
+    await supabase.auth.signOut();
     router.replace("/");
   };
 
