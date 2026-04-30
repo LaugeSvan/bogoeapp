@@ -1,5 +1,4 @@
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import {
@@ -12,19 +11,18 @@ import {
   View,
 } from "react-native";
 import { RadioOption } from "../../components";
+import { supabase } from "../../lib/supabase";
 import styles, { colors } from "../../styles/global";
 
-interface User {
-  name: string;
+interface UserData {
   email: string;
-  password: string;
+  name: string;
   isOnBogø: boolean;
 }
 
 export default function Profil() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   // Edit state
   const [editName, setEditName] = useState("");
@@ -32,12 +30,19 @@ export default function Profil() {
   const [editPassword, setEditPassword] = useState("");
   const [editIsOnBogø, setEditIsOnBogø] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       const loadUser = async () => {
-        const stored = await AsyncStorage.getItem("currentUser");
-        if (stored) setUser(JSON.parse(stored));
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          setUser({
+            email: authUser.email ?? "",
+            name: authUser.user_metadata?.name ?? "",
+            isOnBogø: authUser.user_metadata?.isOnBogø ?? false,
+          });
+        }
       };
       loadUser();
     }, [])
@@ -47,7 +52,7 @@ export default function Profil() {
     if (!user) return;
     setEditName(user.name);
     setEditEmail(user.email);
-    setEditPassword(user.password);
+    setEditPassword("");
     setEditIsOnBogø(user.isOnBogø ? "true" : "false");
     setError("");
     setIsModalVisible(true);
@@ -56,25 +61,34 @@ export default function Profil() {
   const handleSave = async () => {
     if (!editName.trim()) { setError("Navn skal udfyldes"); return; }
     if (!editEmail.trim() || !/\S+@\S+\.\S+/.test(editEmail)) { setError("Ugyldig email"); return; }
-    if (editPassword.length < 6) { setError("Kodeord skal være mindst 6 tegn"); return; }
+    if (editPassword && editPassword.length < 6) { setError("Kodeord skal være mindst 6 tegn"); return; }
 
-    const updated: User = {
-      name: editName.trim(),
-      email: editEmail.trim(),
-      password: editPassword,
-      isOnBogø: editIsOnBogø === "true",
-    };
+    setLoading(true);
+    try {
+      const updates: { email?: string; password?: string; data: object } = {
+        data: {
+          name: editName.trim(),
+          isOnBogø: editIsOnBogø === "true",
+        },
+      };
 
-    // Update in users list too
-    const existingUsers = await AsyncStorage.getItem("users");
-    const users: User[] = existingUsers ? JSON.parse(existingUsers) : [];
-    const index = users.findIndex((u) => u.email === user!.email);
-    if (index !== -1) users[index] = updated;
-    await AsyncStorage.setItem("users", JSON.stringify(users));
-    await AsyncStorage.setItem("currentUser", JSON.stringify(updated));
+      if (editEmail.trim() !== user!.email) updates.email = editEmail.trim();
+      if (editPassword) updates.password = editPassword;
 
-    setUser(updated);
-    setIsModalVisible(false);
+      const { error: updateError } = await supabase.auth.updateUser(updates);
+      if (updateError) { setError(updateError.message); return; }
+
+      setUser({
+        email: editEmail.trim(),
+        name: editName.trim(),
+        isOnBogø: editIsOnBogø === "true",
+      });
+      setIsModalVisible(false);
+    } catch {
+      setError("Noget gik galt. Prøv igen.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!user) return null;
@@ -103,12 +117,7 @@ export default function Profil() {
           </View>
 
           <ProfileRow label="Email" value={user.email} />
-          <ProfileRow
-            label="Kodeord"
-            value={showPassword ? user.password : "••••••••"}
-            onToggle={() => setShowPassword((v) => !v)}
-            toggleIcon={showPassword ? "eye-off-outline" : "eye-outline"}
-          />
+          <ProfileRow label="Kodeord" value="••••••••" />
           <ProfileRow label="Bor på Bogø" value={user.isOnBogø ? "Ja" : "Nej"} />
         </View>
 
@@ -155,7 +164,7 @@ export default function Profil() {
             />
             <TextInput
               style={[styles.input, { width: "100%" }]}
-              placeholder="Kodeord"
+              placeholder="Nyt kodeord (valgfrit)"
               value={editPassword}
               onChangeText={setEditPassword}
               secureTextEntry
@@ -170,8 +179,9 @@ export default function Profil() {
             <TouchableOpacity
               style={[styles.welcomeBtn, { width: "100%", alignItems: "center" }]}
               onPress={handleSave}
+              disabled={loading}
             >
-              <Text style={styles.text}>Gem ændringer</Text>
+              <Text style={styles.text}>{loading ? "Gemmer..." : "Gem ændringer"}</Text>
             </TouchableOpacity>
           </Pressable>
         </Pressable>
