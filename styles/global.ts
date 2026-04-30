@@ -9,6 +9,8 @@ export const colors = {
   text: "#141414",
   symbol: "#141414",
   input: "#d8d8d8",
+  activeItemBg: "#e8f5e9",
+  activeItem: "#2e7d32",
 };
 
 export default StyleSheet.create({

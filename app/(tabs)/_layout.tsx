@@ -18,9 +18,9 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.activeItem,
         tabBarInactiveTintColor: colors.symbol,
-        tabBarActiveBackgroundColor: "#e8f5e9", // Global active background
+        tabBarActiveBackgroundColor: colors.activeItemBg, // Global active background
         tabBarInactiveBackgroundColor: "transparent",
         tabBarItemStyle: styles.tabBarItem,
         tabBarStyle: { backgroundColor: colors.header, height: 60 },
@@ -44,9 +44,6 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Hjem",
-          // Example of individual styling:
-          tabBarActiveTintColor: "#2e7d32", 
-          tabBarActiveBackgroundColor: "#c8e6c9",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
