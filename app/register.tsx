@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -9,14 +8,8 @@ import {
   View,
 } from "react-native";
 import { RadioOption } from "../components";
+import { supabase } from "../lib/supabase";
 import styles from "../styles/global";
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  isOnBogø: boolean;
-}
 
 const Screen = () => {
   const router = useRouter();
@@ -26,6 +19,7 @@ const Screen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const validateForm = (): boolean => {
     if (!name.trim()) {
@@ -59,28 +53,29 @@ const Screen = () => {
     setError("");
     if (!validateForm()) return;
 
+    setLoading(true);
     try {
-      const existingUsers = await AsyncStorage.getItem("users");
-      const users: User[] = existingUsers ? JSON.parse(existingUsers) : [];
+      const { error: authError } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          data: {
+            name: name.trim(),
+            isOnBogø: selectedOption === "true",
+          },
+        },
+      });
 
-      if (users.some((u) => u.email === email)) {
-        setError("Email er allerede registreret");
+      if (authError) {
+        setError(authError.message);
         return;
       }
 
-      const newUser: User = {
-        name: name.trim(),
-        email: email.trim(),
-        password,
-        isOnBogø: selectedOption === "true",
-      };
-
-      users.push(newUser);
-      await AsyncStorage.setItem("users", JSON.stringify(users));
-      await AsyncStorage.setItem("currentUser", JSON.stringify(newUser));
       router.replace("/(tabs)");
     } catch {
       setError("Noget gik galt. Prøv igen.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,8 +129,12 @@ const Screen = () => {
             onSelect={setSelectedOption}
           />
         </View>
-        <TouchableOpacity style={styles.welcomeBtn} onPress={handleRegister}>
-          <Text style={styles.text}>Opret</Text>
+        <TouchableOpacity
+          style={styles.welcomeBtn}
+          onPress={handleRegister}
+          disabled={loading}
+        >
+          <Text style={styles.text}>{loading ? "Opretter..." : "Opret"}</Text>
         </TouchableOpacity>
         <Text style={styles.alreadyText}>
           Allerede bruger?{" "}
