@@ -197,5 +197,6 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 4,
     paddingBottom: 2,
+    overflow: "hidden",
   },
 });
