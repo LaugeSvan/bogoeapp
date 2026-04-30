@@ -189,4 +189,11 @@ export default StyleSheet.create({
     right: 15,
     zIndex: 1,
   },
+
+  tabBarItem: {
+    borderRadius: 10,
+    marginHorizontal: 5,
+    marginVertical: 4,
+    paddingBottom: 2,
+  },
 });

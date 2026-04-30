@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 import { HeaderIcons } from "../../components";
 import { supabase } from "../../lib/supabase";
-import { colors } from "../../styles/global";
+import styles, { colors } from "../../styles/global";
 
 export default function TabLayout() {
   const router = useRouter();
@@ -20,7 +20,10 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.symbol,
-        tabBarStyle: { backgroundColor: colors.header },
+        tabBarActiveBackgroundColor: "#e8f5e9", // Global active background
+        tabBarInactiveBackgroundColor: "transparent",
+        tabBarItemStyle: styles.tabBarItem,
+        tabBarStyle: { backgroundColor: colors.header, height: 60 },
         headerStyle: { backgroundColor: colors.header },
         headerTitleStyle: { fontFamily: "Nunito_700Bold" },
         headerTitle: "Bogø App",
@@ -41,6 +44,9 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Hjem",
+          // Example of individual styling:
+          tabBarActiveTintColor: "#2e7d32", 
+          tabBarActiveBackgroundColor: "#c8e6c9",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
