@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { RadioOption } from "../../components";
 import { supabase } from "../../lib/supabase";
-import { lightColors, darkColors, createStyles } from "../../styles";
+import { useTheme } from "../../styles";
 
 interface UserData {
   email: string;
@@ -21,9 +21,7 @@ interface UserData {
 }
 
 export default function Profil() {
-  const [isDark] = useState(false);
-  const colors = isDark ? darkColors : lightColors;
-  const styles = createStyles(colors);
+  const { colors, styles } = useTheme();
 
   const [user, setUser] = useState<UserData | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);

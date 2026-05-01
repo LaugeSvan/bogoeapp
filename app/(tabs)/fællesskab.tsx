@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import { RadioOption } from "../../components";
 import { supabase } from "../../lib/supabase";
-import { lightColors, darkColors, createStyles } from "../../styles";
+import { useTheme } from "../../styles";
 
 const categories = ["Alle", "Begivenheder", "Spørgsmål", "Nyheder", "Andet"];
 
@@ -33,7 +33,7 @@ function PostCard({
   styles,
 }: {
   post: Post;
-  styles: ReturnType<typeof createStyles>;
+  styles: any;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -73,10 +73,7 @@ function PostCard({
 }
 
 export default function Fællesskab() {
-  const [isDark, setIsDark] = useState(false);
-
-  const colors = isDark ? darkColors : lightColors;
-  const styles = createStyles(colors);
+  const { colors, styles } = useTheme();
 
   const [selectedCategory, setSelectedCategory] = useState("Alle");
   const [isModalVisible, setIsModalVisible] = useState(false);

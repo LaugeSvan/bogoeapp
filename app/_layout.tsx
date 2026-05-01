@@ -6,6 +6,7 @@ import {
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { supabase } from "../lib/supabase";
+import { ThemeProvider } from "../styles/theme";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -36,9 +37,11 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <Stack screenOptions={{ animation: "none", headerShown: false }}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-    </Stack>
+    <ThemeProvider>
+      <Stack screenOptions={{ animation: "none", headerShown: false }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }

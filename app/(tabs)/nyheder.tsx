@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { supabase } from "../../lib/supabase";
-import { lightColors, darkColors, createStyles } from "../../styles";
+import { useTheme } from "../../styles";
 
 type NewsItem = {
   id: string;
@@ -26,7 +26,7 @@ function NewsCard({
   styles,
 }: {
   item: NewsItem;
-  styles: ReturnType<typeof createStyles>;
+  styles: any;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [openImage, setOpenImage] = useState(false);
@@ -77,10 +77,7 @@ function NewsCard({
 }
 
 export default function Nyheder() {
-  const [isDark] = useState(false);
-
-  const colors = isDark ? darkColors : lightColors;
-  const styles = createStyles(colors);
+  const { colors, styles } = useTheme();
 
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);

@@ -16,7 +16,7 @@ import {
 
 import { RadioOption } from "../../components";
 import { supabase } from "../../lib/supabase";
-import { createStyles, useTheme } from "../../styles";
+import { useTheme } from "../../styles";
 
 const categories = ["Alle", "Sælger", "Søges", "Gives væk"];
 
@@ -32,9 +32,11 @@ type Listing = {
 function ListingCard({
   listing,
   styles,
+  colors,
 }: {
   listing: Listing;
-  styles: ReturnType<typeof createStyles>;
+  styles: any;
+  colors: any;
 }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -74,8 +76,7 @@ function ListingCard({
 }
 
 export default function Børsen() {
-  const { colors } = useTheme();
-  const styles = createStyles(colors);
+  const { colors, styles } = useTheme();
 
   const [selectedCategory, setSelectedCategory] = useState("Alle");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -176,7 +177,7 @@ export default function Børsen() {
             data={filteredListings}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ListingCard listing={item} styles={styles} />
+              <ListingCard listing={item} styles={styles} colors={colors} />
             )}
             contentContainerStyle={{
               alignItems: "center",

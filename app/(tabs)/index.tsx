@@ -1,14 +1,10 @@
 import { useRouter } from "expo-router";
 import { Text, View } from "react-native";
-import { lightColors, darkColors, createStyles } from "../../styles";
-import { useState } from "react";
+import { useTheme } from "../../styles";
 
 const HomeScreen = () => {
   const router = useRouter();
-  const [isDark] = useState(false);
-
-  const colors = isDark ? darkColors : lightColors;
-  const styles = createStyles(colors);
+  const { styles } = useTheme();
 
   return (
     <View style={styles.container}>

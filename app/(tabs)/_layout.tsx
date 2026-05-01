@@ -1,17 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs, useRouter } from "expo-router";
-import { useState } from "react";
 import { Pressable } from "react-native";
 import { HeaderIcons } from "../../components";
 import { supabase } from "../../lib/supabase";
-import { lightColors, darkColors, createStyles } from "../../styles";
+import { useTheme } from "../../styles";
 
 export default function TabLayout() {
   const router = useRouter();
-  const [isDark, setIsDark] = useState(false);
-
-  const colors = isDark ? darkColors : lightColors;
-  const styles = createStyles(colors);
+  const { isDark, setIsDark, colors, styles } = useTheme();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -52,7 +48,7 @@ export default function TabLayout() {
               console.log("Notifications ikke implementeret endnu")
             }
             onLogout={handleLogout}
-            onThemeToggle={() => setIsDark((prev) => !prev)}
+            onThemeToggle={() => setIsDark(!isDark)}
             isDark={isDark}
           />
         ),
