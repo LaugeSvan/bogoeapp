@@ -63,10 +63,10 @@ export default function TabLayout() {
           ),
           tabBarButton: (props) => {
             const { ref, ...rest } = props;
-
             return (
               <Pressable
                 {...rest}
+                style={[rest.style, { flex: 1, alignItems: "center", justifyContent: "center" }]}
                 delayLongPress={600}
                 onLongPress={
                   __DEV__ ? () => router.push("/_sitemap") : undefined
