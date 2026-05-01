@@ -8,7 +8,10 @@ import {
   View,
 } from "react-native";
 import { supabase } from "../lib/supabase";
-import styles from "../styles/global";
+import { lightColors, createStyles } from "../styles";
+
+const colors = lightColors;
+const styles = createStyles(colors);
 
 const Login = () => {
   const router = useRouter();
@@ -19,12 +22,14 @@ const Login = () => {
 
   const handleLogin = async () => {
     setError("");
+
     if (!email.trim() || !password) {
       setError("Udfyld email og kodeord");
       return;
     }
 
     setLoading(true);
+
     try {
       const { error: authError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
@@ -47,10 +52,16 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
-        <Text style={styles.text}>Login på vores fællesskab!</Text>
+        <Text style={styles.title}>Login</Text>
+
+        <Text style={[styles.text, { fontSize: 16, marginBottom: 20 }]}>
+          Log ind på fællesskabet
+        </Text>
+
         {error ? (
           <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>
         ) : null}
+
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -60,6 +71,7 @@ const Login = () => {
             keyboardType="email-address"
             autoCapitalize="none"
           />
+
           <TextInput
             style={styles.input}
             placeholder="Kodeord"
@@ -67,6 +79,7 @@ const Login = () => {
             onChangeText={setPassword}
             secureTextEntry
           />
+
           <TouchableOpacity
             style={styles.welcomeBtn}
             onPress={handleLogin}
@@ -77,7 +90,8 @@ const Login = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.alreadyText}>
+
+        <Text style={styles.text}>
           Har du ikke en bruger?{" "}
           <Text style={styles.link} onPress={() => router.push("/register")}>
             Opret

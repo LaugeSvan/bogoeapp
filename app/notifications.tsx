@@ -1,5 +1,8 @@
 import { SafeAreaView, Text, View } from "react-native";
-import styles from "../styles/global";
+import { lightColors, createStyles } from "../styles";
+
+const colors = lightColors;
+const styles = createStyles(colors);
 
 const Welcome = () => {
   return (

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity, View } from "react-native";
-import { colors } from "../styles/global";
+import { lightColors } from "../styles";
 
 interface Props {
   onNotifications: () => void;
@@ -15,6 +15,8 @@ export const HeaderIcons = ({
   onThemeToggle,
   isDark,
 }: Props) => {
+  const colors = lightColors;
+
   return (
     <View style={{ flexDirection: "row", gap: 16, marginRight: 12 }}>
       <TouchableOpacity onPress={onNotifications}>
@@ -24,6 +26,7 @@ export const HeaderIcons = ({
           color={isDark ? "white" : colors.symbol}
         />
       </TouchableOpacity>
+
       <TouchableOpacity onPress={onThemeToggle}>
         <Ionicons
           name={isDark ? "sunny-outline" : "moon-outline"}
@@ -31,6 +34,7 @@ export const HeaderIcons = ({
           color={isDark ? "white" : colors.symbol}
         />
       </TouchableOpacity>
+
       <TouchableOpacity onPress={onLogout}>
         <Ionicons
           name="log-out-outline"

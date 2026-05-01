@@ -10,6 +10,7 @@ import { supabase } from "../lib/supabase";
 export default function RootLayout() {
   const router = useRouter();
   const hasChecked = useRef(false);
+
   const [fontsLoaded] = useFonts({
     Nunito_400Regular,
     Nunito_700Bold,
@@ -18,26 +19,26 @@ export default function RootLayout() {
   useEffect(() => {
     if (!fontsLoaded) return;
     if (hasChecked.current) return;
+
     hasChecked.current = true;
 
-    const checkSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+
       if (session) {
         router.replace("/(tabs)");
       } else {
-        router.replace("/");
+        router.replace("/login");
       }
-    };
-    checkSession();
-  }, [fontsLoaded]);
+    })();
+  }, [fontsLoaded, router]);
 
   if (!fontsLoaded) return null;
 
   return (
     <Stack screenOptions={{ animation: "none", headerShown: false }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
     </Stack>
   );
 }

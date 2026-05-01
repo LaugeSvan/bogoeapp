@@ -4,11 +4,14 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 import { HeaderIcons } from "../../components";
 import { supabase } from "../../lib/supabase";
-import styles, { colors } from "../../styles/global";
+import { lightColors, darkColors, createStyles } from "../../styles";
 
 export default function TabLayout() {
   const router = useRouter();
   const [isDark, setIsDark] = useState(false);
+
+  const colors = isDark ? darkColors : lightColors;
+  const styles = createStyles(colors);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -20,14 +23,29 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: colors.activeItem,
         tabBarInactiveTintColor: colors.symbol,
-        tabBarActiveBackgroundColor: colors.activeItemBg, // Global active background
+        tabBarActiveBackgroundColor: colors.activeItemBg,
         tabBarInactiveBackgroundColor: "transparent",
         tabBarItemStyle: styles.tabBarItem,
-        tabBarStyle: { backgroundColor: colors.header, height: 60 },
-        headerStyle: { backgroundColor: colors.header },
-        headerTitleStyle: { fontFamily: "Nunito_700Bold" },
+        tabBarStyle: {
+          backgroundColor: colors.header,
+          height: 60,
+        },
+
+        headerStyle: {
+          backgroundColor: colors.header,
+        },
+
+        headerTitleStyle: {
+          fontFamily: "Nunito_700Bold",
+          color: colors.text,
+          fontSize: 18,
+        },
+
+        headerTintColor: colors.text,
+
         headerTitle: "Bogø App",
         headerTitleAlign: "center",
+
         headerRight: () => (
           <HeaderIcons
             onNotifications={() =>
