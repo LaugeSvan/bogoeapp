@@ -161,7 +161,7 @@ export const createStyles = (colors: AppColors) =>
     tabBarItem: {
       borderRadius: 10,
       marginHorizontal: 5,
-      marginVertical: 4,
+      marginVertical: 2,
       overflow: "hidden",
     },
   });

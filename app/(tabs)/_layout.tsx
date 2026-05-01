@@ -24,7 +24,7 @@ export default function TabLayout() {
         tabBarItemStyle: styles.tabBarItem,
         tabBarStyle: {
           backgroundColor: colors.header,
-          height: 60,
+          height: 70,
         },
 
         headerStyle: {
