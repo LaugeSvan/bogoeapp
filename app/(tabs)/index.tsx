@@ -108,12 +108,12 @@ export default function HomeScreen() {
         <Section
           title="Seneste fra fællesskab"
           items={recentPosts}
-          onPress={() => router.navigate("/(tabs)/fællesskab")}
+          onPress={() => router.navigate("/(tabs)/faellesskab")}
         />
         <Section
           title="Seneste fra børsen"
           items={recentListings}
-          onPress={() => router.navigate("/(tabs)/børsen")}
+          onPress={() => router.navigate("/(tabs)/boersen")}
         />
       </ScrollView>
     </SafeAreaView>

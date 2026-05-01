@@ -88,7 +88,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="børsen"
+        name="boersen"
         options={{
           title: "Børsen",
           tabBarIcon: ({ color, size }) => (
@@ -98,7 +98,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="fællesskab"
+        name="faellesskab"
         options={{
           title: "Fællesskab",
           tabBarIcon: ({ color, size }) => (
