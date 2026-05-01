@@ -16,6 +16,7 @@ import {
 
 import { RadioOption } from "../../components";
 import { supabase } from "../../lib/supabase";
+import { getCache, setCache, invalidateCache } from "../../lib/cache";
 import { useTheme } from "../../styles";
 
 const categories = ["Alle", "Sælger", "Søges", "Gives væk"];
@@ -87,15 +88,17 @@ export default function Børsen() {
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
 
-  const fetchListings = async () => {
+  const fetchListings = async (force = false) => {
+    if (!force) {
+      const cached = getCache<Listing[]>("listings");
+      if (cached) { setListings(cached); setLoading(false); return; }
+    }
     setLoading(true);
-
     const { data } = await supabase
       .from("listings")
       .select("*")
       .order("created_at", { ascending: false });
-
-    if (data) setListings(data);
+    if (data) { setListings(data); setCache("listings", data); }
     setLoading(false);
   };
 
@@ -134,8 +137,8 @@ export default function Børsen() {
     setNewPostCategory("Sælger");
     setIsModalVisible(false);
     setPosting(false);
-
-    fetchListings();
+    invalidateCache("listings");
+    fetchListings(true);
   };
 
   return (

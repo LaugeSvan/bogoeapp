@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { RadioOption } from "../../components";
 import { supabase } from "../../lib/supabase";
+import { getCache, setCache, invalidateCache } from "../../lib/cache";
 import { useTheme } from "../../styles";
 
 const categories = ["Alle", "Begivenheder", "Spørgsmål", "Nyheder", "Andet"];
@@ -84,16 +85,17 @@ export default function Fællesskab() {
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (force = false) => {
+    if (!force) {
+      const cached = getCache<Post[]>("posts");
+      if (cached) { setPosts(cached); setLoading(false); return; }
+    }
     setLoading(true);
-
     const { data } = await supabase
       .from("posts")
       .select("*")
       .order("created_at", { ascending: false });
-
-    if (data) setPosts(data);
-
+    if (data) { setPosts(data); setCache("posts", data); }
     setLoading(false);
   };
 
@@ -135,8 +137,8 @@ export default function Fællesskab() {
     setNewPostCategory("Begivenheder");
     setIsModalVisible(false);
     setPosting(false);
-
-    fetchPosts();
+    invalidateCache("posts");
+    fetchPosts(true);
   };
 
   return (

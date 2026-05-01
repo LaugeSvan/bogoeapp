@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { supabase } from "../../lib/supabase";
+import { getCache, setCache } from "../../lib/cache";
 import { useTheme } from "../../styles";
 
 type NewsItem = {
@@ -85,15 +86,14 @@ export default function Nyheder() {
   useFocusEffect(
     useCallback(() => {
       const fetchNews = async () => {
+        const cached = getCache<NewsItem[]>("news");
+        if (cached) { setNews(cached); setLoading(false); return; }
         setLoading(true);
-
         const { data } = await supabase
           .from("news")
           .select("*")
           .order("created_at", { ascending: false });
-
-        if (data) setNews(data);
-
+        if (data) { setNews(data); setCache("news", data); }
         setLoading(false);
       };
 
