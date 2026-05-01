@@ -1,4 +1,4 @@
-const TTL = 5 * 60 * 1000; // 5 minutes
+const TTL = 1 * 60 * 1000; // 1 minute
 
 interface CacheEntry<T> {
   data: T;
